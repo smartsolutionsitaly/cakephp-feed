@@ -43,13 +43,13 @@ class FeedBehavior extends Behavior
     ];
 
     /**
-     * Finder for Twitter user feed.
+     * Finder for feed.
      * Adds a formatter to the query.
      * @param Query $query The query object.
      * @param array $options Query options. May contains "count", "field" and "property" elements.
      * @return Query The query object.
      */
-    public function findTweets(Query $query, array $options): Query
+    public function findFeed(Query $query, array $options): Query
     {
         $options = $options + [
                 'count' => (int)$this->getConfig('count'),
