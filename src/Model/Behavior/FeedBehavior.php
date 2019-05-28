@@ -54,7 +54,7 @@ class FeedBehavior extends Behavior
         $options = $options + [
                 'count' => (int)$this->getConfig('count'),
                 'field' => (string)$this->getConfig('field'),
-                'property' => (string)$this->getConfig('field')
+                'property' => 'feed'
             ];
 
         return $query
