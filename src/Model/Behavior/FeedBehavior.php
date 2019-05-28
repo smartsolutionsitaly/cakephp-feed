@@ -66,7 +66,7 @@ class FeedBehavior extends Behavior
                         $count = (int)$options['count'];
                         $items = [];
                         $feed = Factory::create()->getFeedIo()
-                            ->read($this->rss)
+                            ->read($row[$options['field']])
                             ->getFeed();
 
                         foreach ($feed as $entry) {
@@ -90,7 +90,7 @@ class FeedBehavior extends Behavior
                             $res = new \stdClass;
                             $res->title = $feed->getTitle();
                             $res->description = $feed->getDescription();
-                            $res->link = $this->rss;
+                            $res->link = $row[$options['field']];
                             $res->items = $items;
 
                             $row[$options['property']] = $res;
