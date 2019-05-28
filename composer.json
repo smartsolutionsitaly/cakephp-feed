@@ -1,0 +1,46 @@
+{
+  "name": "smartsolutionsitaly/cakephp-feed",
+  "description": "Atom/RSS tools for CakePHP",
+  "keywords": [
+    "cakephp",
+    "feed",
+    "atom",
+    "rss",
+    "client"
+  ],
+  "type": "cakephp-plugin",
+  "license": "MIT",
+  "require": {
+    "php": "^7.1",
+	"debril/feed-io": "^4.3"
+  },
+  "require-dev": {
+    "cakephp/cakephp": "^3.6"
+  },
+  "autoload": {
+    "psr-4": {
+      "SmartSolutionsItaly\\CakePHP\\Feed\\": "src"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "SmartSolutionsItaly\\CakePHP\\Feed\\Test\\": "tests",
+      "Cake\\Test\\": "./vendor/cakephp/cakephp/tests"
+    }
+  },
+  "homepage": "https://github.com/smartsolutionsitaly/cakephp-feed",
+  "authors": [
+    {
+      "name": "Lucio Benini",
+      "email": "dev@smartsolutions.it",
+      "homepage": "https://smartsolutions.it",
+      "role": "Web Developer"
+    }
+  ],
+  "support": {
+    "email": "info@smartsolutions.it",
+    "issues": "https://github.com/smartsolutionsitaly/cakephp-feed/issues",
+    "wiki": "https://github.com/smartsolutionsitaly/cakephp-feed/wiki",
+    "source": "https://github.com/smartsolutionsitaly/cakephp-feed"
+  }
+}

@@ -1,0 +1,13 @@
+# CakePHP 3
+
+/vendor/*
+/config/app.php
+
+# SonarQube
+
+/.scannerwork/*
+
+
+# PHPStorm
+
+/.idea/*
