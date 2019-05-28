@@ -1,16 +1,16 @@
 <?php
 /**
- * cakephp-twitter (https://github.com/smartsolutionsitaly/cakephp-twitter)
+ * cakephp-feed (https://github.com/smartsolutionsitaly/cakephp-feed)
  * Copyright (c) 2019 Smart Solutions S.r.l. (https://smartsolutions.it)
  *
- * Twitter client and helpers for CakePHP
+ * Atom/RSS tools for CakePHP
  *
  * Licensed under The MIT License
  * For full copyright and license information, please see the LICENSE
  * Redistributions of files must retain the above copyright notice.
  *
  * @category  cakephp-plugin
- * @package   cakephp-twitter
+ * @package   cakephp-feed
  * @author    Lucio Benini <dev@smartsolutions.it>
  * @copyright 2019 Smart Solutions S.r.l. (https://smartsolutions.it)
  * @license   https://opensource.org/licenses/mit-license.php MIT License
@@ -18,7 +18,7 @@
  * @since     1.0.0
  */
 
-namespace SmartSolutionsItaly\CakePHP\Twitter\Model\Behavior;
+namespace SmartSolutionsItaly\CakePHP\Feed\Model\Behavior;
 
 use Cake\Collection\CollectionInterface;
 use Cake\ORM\Behavior;
@@ -27,7 +27,7 @@ use FeedIo\Factory;
 
 /**
  * Feed behavior.
- * @package SmartSolutionsItaly\CakePHP\Twitter\Model\Behavior
+ * @package SmartSolutionsItaly\CakePHP\Feed\Model\Behavior
  * @author Lucio Benini
  * @since 1.0.0
  */
