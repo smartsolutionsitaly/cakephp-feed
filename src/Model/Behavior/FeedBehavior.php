@@ -25,6 +25,7 @@ use Cake\ORM\Behavior;
 use Cake\ORM\Query;
 use FeedIo\Factory;
 use FeedIo\Feed\Item;
+use FeedIo\FeedInterface;
 
 /**
  * Feed behavior.
@@ -64,25 +65,10 @@ class FeedBehavior extends Behavior
                     $row[$options['property']] = [];
 
                     if (!empty($row[$options['field']])) {
-                        $count = (int)$options['count'];
-                        $items = [];
                         $feed = Factory::create()->getFeedIo()
                             ->read($row[$options['field']])
                             ->getFeed();
-
-                        foreach ($feed as $entry) {
-                            if ($count-- > 0) {
-                                $items[] = [
-                                    'title' => $entry->getTitle(),
-                                    'description' => $entry->getDescription(),
-                                    'link' => $entry->getLink(),
-                                    'medias' => $this->getMediaUrls($entry),
-                                    'date' => $entry->getLastModified()
-                                ];
-                            } else {
-                                break;
-                            }
-                        }
+                        $items = $this->getItems($feed, (int)$options['count']);
 
                         if (!empty($items)) {
                             $res = new \stdClass;
@@ -98,6 +84,33 @@ class FeedBehavior extends Behavior
                     return $row;
                 });
             }, Query::APPEND);
+    }
+
+    /**
+     * Gets the items of the given feed.
+     * @param FeedInterface $feed The feed to scan.
+     * @param int $count The items to retrieve.
+     * @return array The items of the given feed.
+     */
+    protected function getItems(FeedInterface $feed, int $count): array
+    {
+        $items = [];
+
+        foreach ($feed as $entry) {
+            if ($count-- > 0) {
+                $items[] = [
+                    'title' => $entry->getTitle(),
+                    'description' => $entry->getDescription(),
+                    'link' => $entry->getLink(),
+                    'medias' => $this->getMediaUrls($entry),
+                    'date' => $entry->getLastModified()
+                ];
+            } else {
+                break;
+            }
+        }
+
+        return $items;
     }
 
     /**
