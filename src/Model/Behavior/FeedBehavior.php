@@ -64,22 +64,24 @@ class FeedBehavior extends Behavior
                     $row[$options['property']] = [];
 
                     if (!empty($row[$options['field']])) {
+                        $count = (int)$options['count'];
                         $items = [];
                         $feed = Factory::create()->getFeedIo()
                             ->read($row[$options['field']])
                             ->getFeed();
 
-                        while ($feed->count() < $count) {
-                            $entry = $feed->current();
-
-                            $items[] = [
-                                'title' => $entry->getTitle(),
-                                'description' => $entry->getDescription(),
-                                'link' => $entry->getLink(),
-                                'medias' => $this->getMediaUrls($entry)
-                            ];
-
-                            $feed->next();
+                        foreach ($feed as $entry) {
+                            if ($count-- > 0) {
+                                $items[] = [
+                                    'title' => $entry->getTitle(),
+                                    'description' => $entry->getDescription(),
+                                    'link' => $entry->getLink(),
+                                    'medias' => $this->getMediaUrls($entry),
+                                    'date' => $entry->getLastModified()
+                                ];
+                            } else {
+                                break;
+                            }
                         }
 
                         if (!empty($items)) {
