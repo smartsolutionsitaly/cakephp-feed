@@ -64,7 +64,6 @@ class FeedBehavior extends Behavior
                     $row[$options['property']] = [];
 
                     if (!empty($row[$options['field']])) {
-                        $count = (int)$options['count'];
                         $items = [];
                         $feed = Factory::create()->getFeedIo()
                             ->read($row[$options['field']])
