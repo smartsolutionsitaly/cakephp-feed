@@ -24,6 +24,7 @@ use Cake\Collection\CollectionInterface;
 use Cake\ORM\Behavior;
 use Cake\ORM\Query;
 use FeedIo\Factory;
+use FeedIo\Feed\Item;
 
 /**
  * Feed behavior.
@@ -69,21 +70,17 @@ class FeedBehavior extends Behavior
                             ->read($row[$options['field']])
                             ->getFeed();
 
-                        foreach ($feed as $entry) {
-                            if ($count-- > 0) {
-                                $medias = [];
+                        while ($feed->count() < $count) {
+                            $entry = $feed->current();
 
-                                foreach ($entry->getMedias() as $media) {
-                                    $medias[] = $media->getUrl();
-                                }
+                            $items[] = [
+                                'title' => $entry->getTitle(),
+                                'description' => $entry->getDescription(),
+                                'link' => $entry->getLink(),
+                                'medias' => $this->getMediaUrls($entry)
+                            ];
 
-                                $items[] = [
-                                    'title' => $entry->getTitle(),
-                                    'description' => $entry->getDescription(),
-                                    'link' => $entry->getLink(),
-                                    'medias' => $medias
-                                ];
-                            }
+                            $feed->next();
                         }
 
                         if (!empty($items)) {
@@ -100,5 +97,21 @@ class FeedBehavior extends Behavior
                     return $row;
                 });
             }, Query::APPEND);
+    }
+
+    /**
+     * Gets the URLs of the medias from given item.
+     * @param Item $item Feed node
+     * @return array An array containing the URLs of the medias from given item.
+     */
+    protected function getMediaUrls(Item $item): array
+    {
+        $medias = [];
+
+        foreach ($item->getMedias() as $media) {
+            $medias[] = $media->getUrl();
+        }
+
+        return $medias;
     }
 }
